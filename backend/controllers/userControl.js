@@ -109,3 +109,111 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     await user.save();
     sendToken(user, 200, res);
 })
+
+
+
+exports.getUserdetail = catchAsyncError(async (req, res, next) => {
+    const user = User.findById(req.user.id);
+    res.status(200).json({
+        success: true,
+        user,
+    });
+
+});
+
+exports.updatePassword = catchAsyncError(async (req, res, next) => {
+    const user = await user.findById(req.user.id).select("+password");
+    const isPasswordMatch = await user.comparePassword(req.body.oldPassword);
+
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler("old password is oncorrect", 400));
+    }
+    if (req.body.newpassword !== req.body.confirmPassword) {
+        return next(new ErrorHandler("passeord does not match", 400));
+    }
+    user.password = req.body.newpassword;
+    await user.save();
+    sendToken(res, 200, token);
+});
+
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+    const newUserDate = {
+        name: req.body.name,
+        email: req.body.email,
+    };
+
+    const user = await user.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+
+    });
+    req.status(200).json({
+        success: true,
+    });
+});
+
+
+exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+    const users = await user.find();
+
+    res.status(200).json({
+        success: true,
+        users,
+    });
+});
+
+exports.getSingleUser = catchAsyncError(async (req, res, next) => {
+    const user = await user.findById(req.params.id);
+
+    if (!user) {
+        return next(
+            new ErrorHandler(`User does not exit with id: ${req.params.is}`)
+        );
+    }
+
+    res.status(200).json({
+        success: true,
+        user,
+    });
+
+});
+
+exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+    const newUserDate = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role,
+    };
+
+    const user = await user.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+
+    });
+    req.status(200).json({
+        success: true,
+    });
+});
+
+exports.deletUser = catchAsyncError(async (req, res, next) => {
+    const user = await user.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User does not exit with this id${req.params.id}`))
+    }
+
+    await user.remove();
+
+    res.status(200).json({
+        success: true,
+        message: "User delete successfully",
+    });
+});
+
+
+
+
+
+
