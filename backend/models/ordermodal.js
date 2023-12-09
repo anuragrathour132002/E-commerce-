@@ -1,5 +1,4 @@
-const { default: mongoose } = require("mongoose");
-const mognoose = require("mongoose");
+const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
     shippingInfo: {
@@ -11,16 +10,18 @@ const orderSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
+
         state: {
             type: String,
             required: true,
         },
+
         country: {
             type: String,
             required: true,
         },
         pinCode: {
-            type: String,
+            type: Number,
             required: true,
         },
         phoneNo: {
@@ -39,14 +40,13 @@ const orderSchema = new mongoose.Schema({
                 required: true,
             },
             quantity: {
-                type: String,
+                type: Number,
                 required: true,
             },
             image: {
                 type: String,
                 required: true,
             },
-
             product: {
                 type: mongoose.Schema.ObjectId,
                 ref: "Product",
@@ -55,7 +55,7 @@ const orderSchema = new mongoose.Schema({
         },
     ],
     user: {
-        type: mongoose.Schema.ObjestId,
+        type: mongoose.Schema.ObjectId,
         ref: "User",
         required: true,
     },
@@ -69,12 +69,11 @@ const orderSchema = new mongoose.Schema({
             required: true,
         },
     },
-
     paidAt: {
         type: Date,
         required: true,
     },
-    itemPrice: {
+    itemsPrice: {
         type: Number,
         required: true,
         default: 0,
@@ -84,7 +83,6 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: 0,
     },
-
     shippingPrice: {
         type: Number,
         required: true,
@@ -98,14 +96,13 @@ const orderSchema = new mongoose.Schema({
     orderStatus: {
         type: String,
         required: true,
-        default: "processing",
+        default: "Processing",
     },
-    deliveryAt: Date,
+    deliveredAt: Date,
     createdAt: {
         type: Date,
         default: Date.now,
     },
-
 });
 
-module.exports = mongoose.model("Order", oderSchema);
+module.exports = mongoose.model("Order", orderSchema);
