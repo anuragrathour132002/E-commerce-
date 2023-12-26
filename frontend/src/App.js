@@ -10,12 +10,14 @@ import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
 import LoginSignUp from './component/User/LoginSignUp.js';
 import UserOptions from './component/layout/Header/UserOptions';
-import { loadUser } from "./actions/userAction.js";
+import { loadUser, updatePassword } from "./actions/userAction.js";
 import store from "./store.js";
 import Profile from "./component/User/Profile.js";
 import ProtectedRoute from './Route/ProtectedRoute.js';
 import UpdateProfile from "./component/User/UpdateProfile.js";
-
+import { updatePassword } from './component/User/UpdatePassword.js';
+import ForgotPassword from "./component/User/ForgotPassword.js";
+import ResetPassword from "./component/User/ResetPassword.js";
 
 
 
@@ -40,10 +42,12 @@ function App() {
     <Route exact path="/products" component={Products} />
     <Route path="/products:keyword" component={Products} />
     <Route exact path="/search" component={Search} />
-
+    <ProtectedRoute exact path="/password/update" component={updatePassword} />
+    <Route exact path="password/forgot" component={ForgotPassword} />
     <ProtectedRoute exact path="/account" component={Profile} />
     <Route exact path="/login" component={LoginSignUp} />
-    <ProtectedRoute exact path="/me/account" component={UpdatePRofile} />
+    <ProtectedRoute exact path="/me/account" component={UpdateProfile} />
+    <Route exact path="/password/reset/:token" component={ResetPassword} />
     <Footer />
   </Router>;
 
