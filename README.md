@@ -19,5 +19,5 @@ Enabled customers to place orders seamlessly with a streamlined checkout process
 # Payment Processing:
 Implemented secure payment gateways for card transactions.
 Ensured the confidentiality and integrity of customer payment information.
-## Technologies Used: MongoDB, Express.js, React, Node.js, JWT, RESTful API
-## Tools: Git, GitHub, Postman, Cludniary etc
+## Technologies Used: MongoDB, Express.js, React, Node.js, JWT, RESTful API, React-Redux, Redux dev toolkit
+## Tools: Git, GitHub, Postman, Cloudniary, Stripe etc
